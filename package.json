@@ -1,0 +1,12 @@
+{
+  "name": "movie-spliter",
+  "version": "1.0.0",
+  "description": "movie-spliter",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^18.1.0"
+  }
+}
