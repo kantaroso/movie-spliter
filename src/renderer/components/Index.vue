@@ -49,7 +49,7 @@ export default {
         output: this.file1.path.replace(this.file1.name, date.getTime() + '_output.mp4')
       }
       ipcRenderer.on('movie-split-compleated', (event, arg) => {
-        console.log(arg) // "pong"を表示
+        console.log(arg)
       })
       ipcRenderer.send('movie-split', params)
     }
