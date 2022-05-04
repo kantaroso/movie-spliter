@@ -15,7 +15,7 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
-const { execSync } = require('child_process')
+const { exec } = require('child_process')
 
 function createWindow () {
   /**
@@ -49,6 +49,11 @@ app.on('activate', () => {
 })
 
 ipcMain.on('movie-split', (event, arg) => {
-  event.sender.send('movie-split-compleated', arg)
-  execSync(`ffmpeg -i ${arg.input} -ss ${arg.start_seccond} -t ${arg.total_seccond} -c copy ${arg.output}`)
+  exec(`ffmpeg -y -i ${arg.input} -ss ${arg.start_seccond} -t ${arg.total_seccond} -c copy ${arg.output}`, (err, _, stderr) => {
+    if (err) {
+      event.sender.send('movie-split-error', stderr)
+      return
+    }
+    event.sender.send('movie-split-compleated')
+  })
 })
